@@ -1,0 +1,20 @@
+{% extends 'Blog_App/base.html' %}
+
+{% block content %}
+
+<div class="centerstage">
+
+  {% for post in post_list %}
+
+  {{ post.title }}
+  <div class="date">
+                <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
+            </div>
+  {% for comment in post.comments.all %}
+
+  Comments: {{ comment.text }}
+  {% endfor %}
+  {% endfor %}
+  </div>
+
+  {% endblock %}
