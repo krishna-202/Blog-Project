@@ -5,15 +5,14 @@
 <div class="centerstage">
 
   {% for post in post_list %}
+  <div class="post">
+    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+    <div class="date">
+                  <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
+              </div>
+              Comments: {{ post.comments.count }}
 
-  {{ post.title }}
-  <div class="date">
-                <p>Published on: {{ post.published_date|date:"D M Y"}}</p>
-            </div>
-  {% for comment in post.comments.all %}
-
-  Comments: {{ comment.text }}
-  {% endfor %}
+  </div>
   {% endfor %}
   </div>
 

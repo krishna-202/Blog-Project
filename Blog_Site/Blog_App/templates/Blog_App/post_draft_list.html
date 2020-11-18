@@ -1,0 +1,11 @@
+{% extends "Blog_App/base.html" %}
+
+{% block content %}
+<div class="centerstage">
+  {% for post in post_list %}
+  <div class="post">
+    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

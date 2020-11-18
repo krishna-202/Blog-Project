@@ -1,0 +1,29 @@
+{% extends "Blog_App/base.html" %}
+
+{% block content %}
+
+<h1 class='posttitle loader'>{{ post.title }}</h1>
+
+  {% if post.published_date %}
+  <div class="date postdate">
+      {{ post.published_date }}
+  </div>
+
+  {% else %}
+  <a class="btn btn-default" href="#">Publish</a>
+  {% endif %}
+
+
+  <p class='postcontent' >{{ post.text|safe|linebreaksbr }}</p>
+
+  <div class="container">
+
+    {% for comment in post.comments.all %}
+    <strong><br>Comments:</br></strong>
+    {{ comment.created_date }}
+    <p>{{ comment.text }}</p>
+        <p>Posted by: <strong>{{ comment.author|safe|linebreaksbr }}</strong></p>
+          {% endfor %}
+  </div>
+
+{% endblock %}
