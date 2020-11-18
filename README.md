@@ -10,3 +10,4 @@
 9. Created ListView for Post model in view.py file and added url mapping for the same.
 10.Created ListView for the Post Draft list in views.py file and added url mapping for the same.
 11.Added LoginRequiredMixin authentication to the draft list view.
+12.post publish,comment approve,comment remove views functions and url mappings are added.
