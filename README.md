@@ -7,4 +7,6 @@
 6. Created super user.
 7. Created POST and Comment models in models.py file and registered the models in admin.py file.
 8. Created the records for Post and Comment models.
-9. Created TemplateView for Post model in view.py file and added url mapping for the same.
+9. Created ListView for Post model in view.py file and added url mapping for the same.
+10.Created ListView for the Post Draft list in views.py file and added url mapping for the same.
+11.Added LoginRequiredMixin authentication to the draft list view.
