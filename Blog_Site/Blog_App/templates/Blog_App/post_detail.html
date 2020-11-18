@@ -10,7 +10,7 @@
   </div>
 
   {% else %}
-  <a class="btn btn-default" href="#">Publish</a>
+  <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Publish</a>
   {% endif %}
 
 

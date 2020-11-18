@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import TemplateView,ListView,DetailView
 from .models import Post,Comment
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 class AboutView(TemplateView):
@@ -19,9 +20,14 @@ class PostDetailView(DetailView):
 
 class DraftListView(LoginRequiredMixin,ListView):
     login_url='/accounts/login'
-    
-
     model=Post
+    template_name='post_draft_list.html'
 
     def get_queryset(self):
         return Post.objects.filter(published_date__isnull=True)
+
+@login_required
+def post_publish(request,pk):
+    post=get_object_or_404(Post,pk=pk)
+    post.publish()
+    return redirect('post_detail',pk=pk)
