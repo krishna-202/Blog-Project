@@ -1,9 +1,11 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from django.views.generic import TemplateView,ListView,DetailView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView
 from .models import Post,Comment
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from .forms import PostForm,CommentForm,PostUpdateForm
+from django.urls import reverse_lazy
 # Create your views here.
 
 class AboutView(TemplateView):
@@ -26,11 +28,43 @@ class DraftListView(LoginRequiredMixin,ListView):
     def get_queryset(self):
         return Post.objects.filter(published_date__isnull=True)
 
+class CreatePostView(LoginRequiredMixin,CreateView):
+    login_url='/accounts/login'
+    form_class=PostForm
+    model=Post
+
+class UpdatePostView(LoginRequiredMixin,UpdateView):
+    login_url='/accounts/login'
+    form_class=PostUpdateForm
+    model=Post
+
+class DeletePostView(LoginRequiredMixin,DeleteView):
+    login_url='/accounts/login'
+    model=Post
+    success_url=reverse_lazy('post_list')
+
+
+
 @login_required
 def post_publish(request,pk):
     post=get_object_or_404(Post,pk=pk)
     post.publish()
     return redirect('post_detail',pk=pk)
+
+
+def add_comment_to_post(request,pk):
+    post=get_object_or_404(Post,pk=pk)
+
+    if request.method == "POST":
+        form=CommentForm(request.POST)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.post=post
+            comment.save()
+            return redirect('post_detail',pk=post.pk)
+
+    form=CommentForm()
+    return render(request,'Blog_App/comment_form.html',{'form':form})
 
 @login_required
 def comment_approve(request,pk):

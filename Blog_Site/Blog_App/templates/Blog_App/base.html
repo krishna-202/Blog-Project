@@ -36,7 +36,7 @@
             </div>
 
             <div class="navbar-nav align-items-center ml-auto">
-              <a class="nav-item nav-link" href="#">New Post</a>
+              <a class="nav-item nav-link" href="{% url 'post_new' %}">New Post</a>
             <a class="nav-item nav-link" href="{% url 'draft_list' %}">Drafts</a>
 
             {% if user.is_authenticated %}

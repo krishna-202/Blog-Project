@@ -16,6 +16,17 @@
 
   <p class='postcontent' >{{ post.text|safe|linebreaksbr }}</p>
 
+  {% if user.is_authenticated %}
+
+    <a clss="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}"><span class="fa fa-pencil"></span></a>
+    <a class="btn btn-primary" href="{% url 'post_delete' pk=post.pk %}"><span class="fa fa-remove"></span></a>
+
+    {% endif %}
+
+    <hr>
+
+    <a class="btn btn-primary btn-commnet" href="{% url 'add_comment' pk=post.pk %}">Add comment</a>
+
   <div class="container">
 
     {% for comment in post.comments.all %}
@@ -39,7 +50,7 @@
   {% empty %}
     <p>No comments posted.</p>
   {% endfor %}
-  
+
 </div>
 
 {% endblock %}
